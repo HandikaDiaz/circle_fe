@@ -1,5 +1,4 @@
 import { Box, Image, Text } from "@chakra-ui/react";
-import LikeButton from "../../button/likePost";
 import { useAllReplies } from "../../hooks/use-all";
 import LikeButtonReply from "../../button/likeReply";
 
