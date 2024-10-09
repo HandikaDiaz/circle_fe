@@ -1,10 +1,11 @@
 import { Box, Image, Text } from "@chakra-ui/react";
-import LikeButton from "../../button/like";
+import LikeButton from "../../button/likePost";
 import { useAllReplies } from "../../hooks/use-all";
+import LikeButtonReply from "../../button/likeReply";
 
 export function StatusItem() {
     const { data } = useAllReplies();
-    
+
     return (
         <>
             {data?.map((reply) => {
@@ -45,7 +46,7 @@ export function StatusItem() {
                                     display={'flex'}
                                     fontSize={'20px'}
                                     alignItems={'center'}>
-                                    <LikeButton postId={reply.id} />
+                                    <LikeButtonReply replyId={reply.id} />
                                     <Text
                                         as={'span'}
                                         color={'home.link'}

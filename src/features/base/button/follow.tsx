@@ -9,7 +9,7 @@ interface FollowButtonProps {
 }
 
 const FollowButton: React.FC<FollowButtonProps> = ({ userId }) => {
-    const [isFollow, setIsFollow] = React.useState(false);
+    const [, setIsFollow] = React.useState(false);
     const [buttonText, setButtonText] = useState<string>("Follow");
 
     const queryClient = useQueryClient();
@@ -44,8 +44,8 @@ const FollowButton: React.FC<FollowButtonProps> = ({ userId }) => {
             setIsFollow(newFollowStatus);
             setButtonText(newFollowStatus ? "Following" : "Follow");
 
-            queryClient.invalidateQueries(['user', userId]);
-            queryClient.invalidateQueries(['follow-status', userId]);
+            queryClient.invalidateQueries({ queryKey: ['user', userId] });
+            queryClient.invalidateQueries({ queryKey: ['follow-status', userId] });
 
         } catch (error) {
             console.error("Error toggling follow status:", error);

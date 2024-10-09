@@ -31,7 +31,8 @@ export function useLoginForm() {
                 LoginRequestDTO
             >('/auth/login', data);
             const { user, token } = response.data;
-
+            console.log("ini user", user);
+            
             dispatch(setUser(user));
             Cookies.set('token', token, { expires: 1 });
 
@@ -56,7 +57,7 @@ export function useLoginForm() {
             if (axios.isAxiosError(error) && error.response) {
                 const stackMessage = error.response.data.message;
                 if (stackMessage.includes('Email')) {
-                    setError('email', {
+                    setError('userName', {
                         message: error.response.data.message,
                     });
                 }

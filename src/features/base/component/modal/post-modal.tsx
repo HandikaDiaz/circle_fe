@@ -14,7 +14,7 @@ interface InitialFocusModalProps {
 }
 
 export function PostModal({ isOpen, onClose, initialRef, finalRef }: InitialFocusModalProps) {
-    const { register, handleSubmit, errors, onSubmit, isLoading } = usePost();
+    const { register, handleSubmit, errors, onSubmit } = usePost();
     const { data } = useUser();
     
     return (

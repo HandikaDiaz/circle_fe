@@ -6,30 +6,30 @@ import { FaHeart } from "react-icons/fa";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface LikeButtonProps {
-    postId: number | any
+    replyId: number | any
 }
 
-const LikeButtonPost: React.FC<LikeButtonProps> = ({ postId }: any) => {
+const LikeButtonReply: React.FC<LikeButtonProps> = ({ replyId }: any) => {
     const [isLiked, setIsLiked] = React.useState(false);
-    const [likeCount, setLikeCount] = React.useState(0);
+    const [, setLikeCount] = React.useState(0);
     const queryClient = useQueryClient();
 
+    const fetchLike = async () => {
+        const response = await apiV1.get(`/reply/${replyId}/like`, {
+            headers: {
+                Authorization: `Bearer ${Cookies.get("token")}`
+            }
+        });
+        setIsLiked(response.data.isLiked);
+        setLikeCount(response.data.likesCount);
+    }
     useEffect(() => {
-        const fetchLike = async () => {
-            const response = await apiV1.get(`/post/${postId}/like`, {
-                headers: {
-                    Authorization: `Bearer ${Cookies.get("token")}`
-                }
-            });
-            setIsLiked(response.data.isLiked);
-            setLikeCount(response.data.likesCount);
-        }
         fetchLike();
-    }, [postId]);
+    }, [replyId]);
 
     const mutation = useMutation<void, Error, void>({
         mutationFn: async () => {
-            await apiV1.post(`/post/${postId}/like`, {}, {
+            await apiV1.post(`/reply/${replyId}/like`, {}, {
                 headers: {
                     Authorization: `Bearer ${Cookies.get("token")}`,
                 },
@@ -43,7 +43,15 @@ const LikeButtonPost: React.FC<LikeButtonProps> = ({ postId }: any) => {
                 );
                 return newLikedStatus;
             });
-            queryClient.invalidateQueries({ queryKey: ['posts'] });
+
+            queryClient.invalidateQueries({
+                predicate: (query) => {
+                    console.log(query.queryKey);
+                    return query.queryKey[0] === 'reply' && query.queryKey[1] === +replyId
+
+                }
+            });
+            queryClient.invalidateQueries({ queryKey: ['reply-post'] });
         },
     });
 
@@ -51,15 +59,6 @@ const LikeButtonPost: React.FC<LikeButtonProps> = ({ postId }: any) => {
         mutation.mutate();
     };
 
-    // const handleLike = async () => {
-    //     await apiV1.post(`/post/${postId}/like`, {}, {
-    //         headers: {
-    //             Authorization: `Bearer ${Cookies.get("token")}`
-    //         }
-    //     });
-    //     setIsLiked((prev) => !prev);
-    //     setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
-    // };
     const likeIconRed = <FaHeart style={{ color: 'red', fontSize: '18px', marginRight: '5px' }} />
     const likeIconGray = <FaHeart style={{ color: 'gray', fontSize: '18px', marginRight: '5px' }} />
 
@@ -70,4 +69,4 @@ const LikeButtonPost: React.FC<LikeButtonProps> = ({ postId }: any) => {
     );
 }
 
-export default LikeButtonPost;
+export default LikeButtonReply;
