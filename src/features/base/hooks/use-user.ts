@@ -53,7 +53,6 @@
                 }
             }
             );
-            console.log("Response dari server:", response);
                 
             queryClient.invalidateQueries({ queryKey: ['user'] });
             return response.data;

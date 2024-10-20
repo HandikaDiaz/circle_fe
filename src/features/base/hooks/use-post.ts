@@ -19,7 +19,6 @@ export function usePost() {
         });
     const queryClient = useQueryClient();
     const { id: authorId } = useAppSelector((state) => state.auth);
-    console.log("inidia ",useAppSelector((state) => state.auth));
     
     const toast = useToast();
 

@@ -46,9 +46,7 @@ const LikeButtonPost: React.FC<LikeButtonProps> = ({ postId }: any) => {
 
             queryClient.invalidateQueries({
                 predicate: (query) => {
-                    console.log(query.queryKey);
                     return query.queryKey[0] === 'post' && query.queryKey[1] === +postId
-
                 }
             });
             queryClient.invalidateQueries({ queryKey: ['posts'] });
