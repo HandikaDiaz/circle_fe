@@ -31,8 +31,6 @@ export function useLoginForm() {
                 LoginRequestDTO
             >('/auth/login', data);
             const { user, token } = response.data;
-            console.log(token as string);
-            
             
             dispatch(setUser(user));
             Cookies.set('token', token, { expires: 1 });

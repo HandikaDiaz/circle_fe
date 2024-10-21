@@ -36,6 +36,7 @@ export function PostModal({ isOpen, onClose, initialRef, finalRef }: InitialFocu
                     borderRadius={"15px"}>
                     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                         <ModalBody pb={6}>
+                            <Box>testerr</Box>
                             <Box
                                 mb="10px"
                                 mt={'10px'}
