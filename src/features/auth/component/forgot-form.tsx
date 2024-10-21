@@ -9,7 +9,6 @@ import { ErrorMessage } from '../schemas/error';
 
 export function ForgotForm() {
     const { register, handleSubmit, errors, onSubmit } = useForgotForm();
-
     return (
         <Box
             mx="auto"
@@ -35,7 +34,7 @@ export function ForgotForm() {
                         borderRadius={'5px'}
                         {...register('userName')}
                         border={'1px solid #545454'}
-                        placeholder='  Email/Username'
+                        placeholder='  Email'
                         backgroundColor={'transparent'} />
                     <ErrorMessage message={errors.userName?.message} />
 
