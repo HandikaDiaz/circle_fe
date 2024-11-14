@@ -11,7 +11,6 @@ interface FollowButtonProps {
 const FollowButton: React.FC<FollowButtonProps> = ({ userId }) => {
     const [, setIsFollow] = React.useState(false);
     const [buttonText, setButtonText] = useState<string>("Follow");
-
     const queryClient = useQueryClient();
 
     const fetchFollow = async () => {
@@ -20,7 +19,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({ userId }) => {
                 headers: {
                     Authorization: `Bearer ${Cookies.get("token")}`
                 }
-            });
+            }); 
 
             setIsFollow(response.data.isFollowing);
             setButtonText(response.data.isFollowing ? "Following" : "Follow");
